@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+        <link rel="icon" href="{{ url_for('static',filename='img/logo.png') }}">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% block title %}{% endblock %}
+        <link href="{{ url_for('static',filename='stylesheet.css') }}" rel="stylesheet">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+                <!-- Bootstrap JavaScript -->
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="{{ url_for('static',filename='scrollpage.js') }}"></script>
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+        <script src="//datamaps.github.io/scripts/0.4.4/datamaps.world.min.js"></script>
+        <script type="text/javascript" src="{{ url_for('static',filename='js/layout.js') }}"></script>
+        {% if indexCountry == true %}
+        <script type="text/javascript" src="{{ url_for('static',filename='js/country.js') }}">
+
+        </script>
+
+        {% endif %}
+        {% block extrajs %}{% endblock %}
+        <script>
+            var map = new Datamap({element: document.getElementById('mapcontainer')});
+        </script>
+        <script>
+            var lastScrollTop = 0;
+            $("div").scroll(function (event) {
+                var st = $(this).scrollTop();
+                if (st > lastScrollTop) {
+            $('img').animate({top: '-=10'}, 10);
+                } else {
+            $('img').animate({top: '+=10'}, 10);
+                }
+                lastScrollTop = st;
+            });
+        </script>
+        <script>
+            /* When the user clicks on the button, toggle between hiding and showing the dropdown content */
+
+
+
+        </script>
+    </head>
+    <body onLoad=pageScroll()>
+    <div id="wholepage">
+    <div id="top">
+        <a href="/"><img class="logo" src="{{ url_for('static',filename='img/logo.png') }}" alt="Global Health Impact" width="100px" /></a>
+        <div id="buttons">
+        <div class="dropdown">
+        <button id="about" onclick="abtNav()" class="navbtn">INFO</button>
+            <div id="abtBar" class="dropdown-content">
+                <a href="/about">ABOUT</a>
+                <a href="/news">NEWS</a>
+                <a href="/reports">REPORTS</a>
+                <a href="/resources">RESOURCES</a>
+                <a href="/methodology">METHODOLOGY</a>
+                <a href="/organization">ORGANIZATION</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button id="index" onclick="dropNav()" class="navbtn">INDEX</button>
+            <div id="navBar" class="dropdown-content">
+                <a href="/index/country">COUNTRY</a>
+                <a href="/index/company">COMPANY</a>
+                <a href="/index/drug">DRUG</a>
+                <a href="/index/disease">DISEASE</a>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="par">
+    <div class="frontimg">
+        {% block frontimg %}{% endblock %}
+        {% block frontindx %}{% endblock %}
+        <script type="text/javascript">
+            function navclick(ext) {
+                window.location.href = ext;
+            }
+        </script>
+            {% if showindex == 1 %}
+            <div id="navigator">
+                <ul style="list-style-type:none;">
+                    <li><p class="indxhead">Index</p></li>
+                    <li><a class="hh1" href="/index/country">Country</a></li>
+                    {% if navsub == 1 %}
+                    <a href="#" onclick="yearclick('country2010','country2013')" class="yearbutton">2010</a>
+                    <div class="subnavdiv" id="country2010">
+                        <ul style="list-style-type:none;">
+                            <li><a class="dislist" href="/index/country/2010/all">All</a></li>
+                            <li><a class="dislist" href="/index/country/2010/malaria">Malaria</a></li>
+                            <li><a class="dislist" href="/index/country/2010/tb">TB</a></li>
+                            <li><a class="dislist" href="/index/country/2010/hiv">HIV/AIDS</a></li>
+                            <li><a class="dislist" href="/index/country/2010/onchocerciasis">Onchocerciasis</a></li>
+                            <li><a class="dislist" href="/index/country/2010/schistosomiasis">Schistosomiasis</a></li>
+                            <li><a class="dislist" href="/index/country/2010/lf">Lymphatic Filariasis</a></li>
+                            <li><a class="dislist" href="/index/country/2010/hookworm">Hookworm</a></li>
+                            <li><a class="dislist" href="/index/country/2010/roundworm">Roundworm</a></li>
+                            <li><a class="dislist" href="/index/country/2010/whipworm">Whipworm</a></li>
+                        </ul>
+                    </div><br>
+                    <a href="#" onclick="yearclick('country2013','country2010')" class="yearbutton">2013</a>
+                    <div class="subnavdiv" id="country2013">
+                        <ul style="list-style-type:none;">
+                            <li><a class="dislist" href="/index/country/2013/all">All</a></li>
+                            <li><a class="dislist" href="/index/country/2013/malaria">Malaria</a></li>
+                            <li><a class="dislist" href="/index/country/2013/tb">TB</a></li>
+                            <li><a class="dislist" href="/index/country/2013/hiv">HIV/AIDS</a></li>
+                            <li><a class="dislist" href="/index/country/2013/onchocerciasis">Onchocerciasis</a></li>
+                            <li><a class="dislist" href="/index/country/2013/schistosomiasis">Schistosomiasis</a></li>
+                            <li><a class="dislist" href="/index/country/2013/lf">Lymphatic Filariasis</a></li>
+                            <li><a class="dislist" href="/index/country/2013/hookworm">Hookworm</a></li>
+                            <li><a class="dislist" href="/index/country/2013/roundworm">Roundworm</a></li>
+                            <li><a class="dislist" href="/index/country/2013/whipworm">Whipworm</a></li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <li><a class="hh1" href="/index/company">Company</a></li>
+                    {% if navsub == 2 %}
+                    <ul class="compsublist">
+                        <li><a href="#" onclick="yearclick('manunav','patentnav')" class="compsub">Manufacturer</a>
+                        <div id="manunav"{% if comptype == 1 %} style="display:none"{% endif %}>
+                            <a href="#" onclick="yearclick('manu2010','manu2013')" class="yearbutton">2010</a>
+                            <div class="subnavdiv" id="manu2010">
+                                <ul style="list-style-type:none;">
+                                    <li><a class="dislist" href="/index/company/manufacturer/2010/all">All</a></li>
+                                    <li><a class="dislist" href="/index/company/manufacturer/2010/tb">TB</a></li>
+                                    <li><a class="dislist" href="/index/company/manufacturer/2010/hiv">HIV/AIDS</a></li>
+                                </ul>
+                            </div><br>
+                            <a href="#" onclick="yearclick('manu2013','manu2010')" class="yearbutton">2013</a>
+                            <div class="subnavdiv" id="manu2013">
+                                <ul style="list-style-type:none;">
+                                    <li><a class="dislist" href="/index/company/manufacturer/2013/all">All</a></li>
+                                    <li><a class="dislist" href="/index/company/manufacturer/2013/tb">TB</a></li>
+                                    <li><a class="dislist" href="/index/company/manufacturer/2013/hiv">HIV/AIDS</a></li>
+                                </ul>
+                            </div>
+                        </div></li>
+                        <li><a href="#" onclick="yearclick('patentnav','manunav')" class="compsub">Patent Holder</a>
+                        <div id="patentnav"{% if comptype == 0 %} style="display:none"{% endif %}>
+                            <a href="#" onclick="yearclick('patent2010','patent2013')" class="yearbutton">2010</a>
+                            <div class="subnavdiv" id="patent2010">
+                                <ul style="list-style-type:none;">
+                                    <li><a class="dislist" href="/index/company/patent/2010/all">All</a></li>
+                                    <li><a class="dislist" href="/index/company/patent/2010/malaria">Malaria</a></li>
+                                    <li><a class="dislist" href="/index/company/patent/2010/tb">TB</a></li>
+                                    <li><a class="dislist" href="/index/company/patent/2010/hiv">HIV/AIDS</a></li>
+                                    <li><a class="dislist" href="/index/company/patent/2010/onchocerciasis">Onchocerciasis</a></li>
+                                    <li><a class="dislist" href="/index/company/patent/2010/schistosomiasis">Schistosomiasis</a></li>
+                                    <li><a class="dislist" href="/index/company/patent/2010/lf">Lymphatic Filariasis</a></li>
+                                    <li><a class="dislist" href="/index/company/patent/2010/hookworm">Hookworm</a></li>
+                                    <li><a class="dislist" href="/index/company/patent/2010/roundworm">Roundworm</a></li>
+                                    <li><a class="dislist" href="/index/company/patent/2010/whipworm">Whipworm</a></li>
+                                </ul>
+                            </div><br>
+                            <a href="#" onclick="yearclick('patent2013','patent2010')" class="yearbutton">2013</a>
+                            <div class="subnavdiv" id="patent2013">
+                                <ul style="list-style-type:none;">
+                                    <li><a class="dislist" href="/index/company/patent/2013/all">All</a></li>
+                                    <li><a class="dislist" href="/index/company/patent/2013/malaria">Malaria</a></li>
+                                    <li><a class="dislist" href="/index/company/patent/2013/tb">TB</a></li>
+                                    <li><a class="dislist" href="/index/company/patent/2013/hiv">HIV/AIDS</a></li>
+                                    <li><a class="dislist" href="/index/company/patent/2013/onchocerciasis">Onchocerciasis</a></li>
+                                    <li><a class="dislist" href="/index/company/patent/2013/schistosomiasis">Schistosomiasis</a></li>
+                                    <li><a class="dislist" href="/index/company/patent/2013/lf">Lymphatic Filariasis</a></li>
+                                    <li><a class="dislist" href="/index/company/patent/2013/hookworm">Hookworm</a></li>
+                                    <li><a class="dislist" href="/index/company/patent/2013/roundworm">Roundworm</a></li>
+                                    <li><a class="dislist" href="/index/company/patent/2013/whipworm">Whipworm</a></li>
+                                </ul>
+                            </div>
+
+                        </div></li>
+                    </ul>
+                    {% endif %}
+                    <li><a class="hh1" href="/index/drug">Drug</a></li>
+                    {% if navsub == 3 %}
+                    <a href="#" onclick="yearclick('drug2010','drug2013')" class="yearbutton">2010</a>
+                    <div class="subnavdiv" id="drug2010">
+                        <ul style="list-style-type:none;">
+                            <li><a class="dislist" href="/index/drug/2010/all">All</a></li>
+                            <li><a class="dislist" href="/index/drug/2010/malaria">Malaria</a></li>
+                            <li><a class="dislist" href="/index/drug/2010/tb">TB</a></li>
+                            <li><a class="dislist" href="/index/drug/2010/hiv">HIV/AIDS</a></li>
+                            <li><a class="dislist" href="/index/drug/2010/schistosomiasis">Schistosomiasis</a></li>
+                            <li><a class="dislist" href="/index/drug/2010/lf">Lymphatic Filariasis</a></li>
+                            <li><a class="dislist" href="/index/drug/2010/hookworm">Hookworm</a></li>
+                            <li><a class="dislist" href="/index/drug/2010/roundworm">Roundworm</a></li>
+                            <li><a class="dislist" href="/index/drug/2010/whipworm">Whipworm</a></li>
+                        </ul>
+                    </div><br>
+                    <a href="#" onclick="yearclick('drug2013','drug2010')" class="yearbutton">2013</a>
+                    <div class="subnavdiv" id="drug2013">
+                        <ul style="list-style-type:none;">
+                            <li><a class="dislist" href="/index/drug/2013/all">All</a></li>
+                            <li><a class="dislist" href="/index/drug/2013/malaria">Malaria</a></li>
+                            <li><a class="dislist" href="/index/drug/2013/tb">TB</a></li>
+                            <li><a class="dislist" href="/index/drug/2013/hiv">HIV/AIDS</a></li>
+                            <li><a class="dislist" href="/index/drug/2013/onchocerciasis">Onchocerciasis</a></li>
+                            <li><a class="dislist" href="/index/drug/2013/schistosomiasis">Schistosomiasis</a></li>
+                            <li><a class="dislist" href="/index/drug/2013/lf">Lymphatic Filariasis</a></li>
+                            <li><a class="dislist" href="/index/drug/2013/hookworm">Hookworm</a></li>
+                            <li><a class="dislist" href="/index/drug/2013/roundworm">Roundworm</a></li>
+                            <li><a class="dislist" href="/index/drug/2013/whipworm">Whipworm</a></li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <li><a class="hh1" href="/index/disease">Disease</a></li>
+                    {% if navsub == 4 %}
+                    <a href="#" onclick="yearclick('disease2010','disease2013')" class="yearbutton">2010</a>
+                    <div class="subnavdiv" id="disease2010">
+                        <ul style="list-style-type:none;">
+                            <li><a class="dislist" href="/index/disease/2010/summary">Summary</a></li>
+                            <li><a class="dislist" href="/index/disease/2010/all">All</a></li>
+                            <li><a class="dislist" href="/index/disease/2010/malaria">Malaria</a></li>
+                            <li><a class="dislist" href="/index/disease/2010/tb">TB</a></li>
+                            <li><a class="dislist" href="/index/disease/2010/hiv">HIV/AIDS</a></li>
+                            <li><a class="dislist" href="/index/disease/2010/onchocerciasis">Onchocerciasis</a></li>
+                            <li><a class="dislist" href="/index/disease/2010/schistosomiasis">Schistosomiasis</a></li>
+                            <li><a class="dislist" href="/index/disease/2010/lf">Lymphatic Filariasis</a></li>
+                            <li><a class="dislist" href="/index/disease/2010/hookworm">Hookworm</a></li>
+                            <li><a class="dislist" href="/index/disease/2010/roundworm">Roundworm</a></li>
+                            <li><a class="dislist" href="/index/disease/2010/whipworm">Whipworm</a></li>
+                        </ul>
+                    </div><br>
+                    <a href="#" onclick="yearclick('disease2013','disease2010')" class="yearbutton">2013</a>
+                    <div class="subnavdiv" id="disease2013">
+                        <ul style="list-style-type:none;">
+                            <li><a class="dislist" href="/index/disease/2013/summary">Summary</a></li>
+                            <li><a class="dislist" href="/index/disease/2013/all">All</a></li>
+                            <li><a class="dislist" href="/index/disease/2013/malaria">Malaria</a></li>
+                            <li><a class="dislist" href="/index/disease/2013/tb">TB</a></li>
+                            <li><a class="dislist" href="/index/disease/2013/hiv">HIV/AIDS</a></li>
+                            <li><a class="dislist" href="/index/disease/2013/onchocerciasis">Onchocerciasis</a></li>
+                            <li><a class="dislist" href="/index/disease/2013/schistosomiasis">Schistosomiasis</a></li>
+                            <li><a class="dislist" href="/index/disease/2013/lf">Lymphatic Filariasis</a></li>
+                            <li><a class="dislist" href="/index/disease/2013/hookworm">Hookworm</a></li>
+                            <li><a class="dislist" href="/index/disease/2013/roundworm">Roundworm</a></li>
+                            <li><a class="dislist" href="/index/disease/2013/whipworm">Whipworm</a></li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                </ul>
+            </div>
+            {% endif %}
+
+
+    </div>
+
+</div>
+
+
+    </div>
+        <div class="height" id="maincontentblock">
+        <div class="narrow">
+            {% block content %}{% endblock %}
+        </div>
+        {% if scrolling == 1 %}
+        <style>
+
+            @keyframes heightup {
+                from {top: calc(100vw * 0.506 + 110px);}
+                to {top: calc(25vw * 0.506 + 110px);}
+            }
+            @keyframes navup {
+                from {height: calc(100vw * 0.506 + 70px);}
+                to {height: calc(25vw * 0.506 + 24px);}
+            }
+            .height { animation-name: heightup; animation-duration: 2s; top: calc(25vw * 0.506 + 110px);}
+            #navigator { animation-name: navup; animation-duration: 2s; height: calc(25vw * 0.506 + 24px);}
+
+        </style>
+        {% endif %}
+        {% if scrolling == 2 %}
+        <style>
+
+            @keyframes heightup {
+                from {top: calc(100vw * 0.506 + 110px);}
+                to {top: calc(25vw * 0.506 + 110px);}
+            }
+
+            .height { animation-name: heightup; animation-duration: 2s; top: calc(25vw * 0.506 + 110px);}
+
+        </style>
+        {% endif %}
+            <div class="foot">
+            <table width=100%;>
+                <tr valign="middle">
+                    <td id="contact">CONTACT US</td>
+                    <td class="socialmedia" align="left"><a href="https://www.instagram.com/gblhealthimpact/"><img src="{{ url_for('static',filename='img/socialmedia-01.png') }}" width="30px" /></a></td>
+                    <td class="socialmedia" align="left"><a href="https://twitter.com/GBLHealthImpact"><img src="{{ url_for('static',filename='img/socialmedia-02.png') }}" width="30px" /></a></td>
+                    <td class="socialmedia" align="left"><a href="https://www.facebook.com/GlobalHealthImpactProject"><img src="{{ url_for('static',filename='img/socialmedia-04.png') }}" width="30px" /></a></td>
+                    <td id="ghi">© 2017 GLOBAL HEALTH IMPACT</td>
+                </tr>
+            </table>
+            </div>
+        </div>
+
+
+    </body>
+</html>

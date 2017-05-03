@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+{% block title %}
+<title>Reports</title>
+{% endblock %}
+
+{% block frontimg %}
+<img id="fore" src="static/img/about.jpg"/>
+{% endblock %}
+
+{% block content %}
+<div class="currentlocation">
+<p class="pagetitle">Info / <a href="/reports" class="titlebold">Reports</a></p>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="contentbox">
+            <p class="redtxt"  style="font-size:42px;font-weight:bold">REPORTS</p>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="contentbox">
+            <p class="redtxt">PICK A COMPANY:</p>
+            <p class="txtcontent">SanofiNovartis
+
+Pfizer</br>
+Shire</br>
+Hoffman-LaRoche</br>
+Boehringer Ingelheim</br>
+Bristol-Meyers Squibb</br>
+Viiv Healthcare</br>
+Merk</br>
+Gilead Science</br>
+Abbott Laboratories</br>
+Daiichi Sankyo</br>
+Chongqing Tonghe</br>
+Eli Lilly</br>
+Kyorin Co., Ltd</br>
+Bayer Healthcare</p>
+        </div>
+        <div class="contentbox">
+            <p class="redtxt">SCORE EXPLANATION REPORT:</p>
+            <p class="txtcontent">Learn more about the companies and drugs. It also explains the score break-down for each company.</p>
+            <table id="reporttab">
+                <tr>
+                    <td id="paperthumb">
+                        <a href="http://global-health-impact.org/src/Consumer%20and%20Ranking%20011615.pdf">
+                            <img src="static/img/ghi_company_report.jpg" width="100%"/>
+                        </a>
+                    </td>
+                    <td>
+                        <p class="abtlabel">Click on the paper to read more!</p>
+                    </td>
+                </tr>
+            </table>
+            <table id="reporttab">
+                <tr>
+                    <td id="paperthumb">
+                        <a href="http://global-health-impact.org/src/Company%20Ranking%20Only%20011615.pdf">
+                            <img src="static/img/ghi_ranking_explanation.jpg" width="100%"/>
+                        </a>
+                    </td>
+                    <td>
+                        <p class="abtlabel">Click on the paper to read more!</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="contentbox">
+
+        </div>
+    </div>
+</div>
+{% endblock %}

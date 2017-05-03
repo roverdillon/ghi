@@ -1,0 +1,265 @@
+{% extends "layout.html" %}
+{% block title %}
+<title>{% if comptype == 0 %}Manufacturer{% endif %}{% if comptype == 1 %}Patent Holder{% endif %} Index - Global Health Impact</title>
+
+{% endblock %}
+
+{% block frontimg %}
+<img id="fore" src="{{ url_for('static',filename='img/company.jpg') }}" />
+{% endblock %}
+
+{% block content %}
+{% if comptype == 0 %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load("current", {packages:["corechart"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([['Company','DALY']{% for row in data %},['{{row.0}}',{{row.1}}]{% endfor %}]);
+    var options = {
+        height: 300,
+        'chartArea':{top:0},
+        legend:'none',
+        slices: [{% for row in data %}{color: '{{row.2 |safe}}'},{% endfor %}{}],
+        is3D: 'true'
+    };
+
+    var chart1 = new google.visualization.PieChart(document.getElementById('manupie1'));
+    var chart2 = new google.visualization.PieChart(document.getElementById('manupie2'));
+    chart1.draw(data, options);
+    chart2.draw(data, options);
+  };
+</script>
+<script type="text/javascript">
+
+</script>
+<div class="currentlocation">
+<p class="pagetitle">Index / <a href="/index/company" class="pagetitle">Company</a> / <a href="/index/company/manufacturer/{{ speclocate.0 }}/all" class="pagetitle">Manufacturer</a> / <a href="/index/company/manufacturer/{{ speclocate.0 }}/all" class="pagetitle">{{ speclocate.0 }}</a> / <a href="/index/company/manufacturer/{{ speclocate.0 }}/{{ speclocate.2 }}" class="titlebold">{{ speclocate.1 }}</a></p>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="contentbox">
+            <p class="redtxt">MANUFACTURER: <b>ALL</b></p>
+            <p class="txtcontent">The Global Health Impact Company Index evaluates how pharmaceutical companies’ drugs impact the health of populations devastated by disease. It is usually the case that those who are burdened most by these diseases live on less a dollar a day. Company scores are the combined total of the impact of their drugs on death and disability around the world. Three aspects are taken into consideration when determining country scores: The need for several important drugs in each country, the drugs’ effectiveness, and the number of people that can access them. For additional information, please see the Reports.</p>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="contentbox">
+            <p class="bluetxt" style="font-size:26px; !important">Proportion of Global Disease Burden Alleviated by Originator Company’s Drugs</p>
+            <div class="piewrap">
+                <div class="piechart" id="manupie1"></div>
+            </div>
+            <div class="pielegend">
+                <table style="margin:auto;white-space: nowrap;">
+                    {% for row in pielab %}
+                    <tr style="float:center">
+                        <td class="tablecell"><div class="colorbox" style="background-color:#{{ row.2 |safe }};"></div></td>
+                        <td class="tablecell legendtxt" title="{{ row.0 |safe }}">{{ row.1 |safe }}</td>
+                        <td class="tablecell leftcell"><div class="colorbox" style="background-color:#{{ row.5 |safe }};"></div></td>
+                        <td class="tablecell legendtxt" title="{{ row.3 |safe }}">{{ row.4 |safe }}</td>
+                        <td class="tablecell leftcell"><div class="colorbox" style="background-color:#{{ row.8 |safe }};"></div></td>
+                        <td class="tablecell legendtxt" title="{{ row.6 |safe }}">{{ row.7 |safe }}</td>
+                        <td class="tablecell leftcell"><div class="colorbox" style="background-color:#{{ row.11 |safe }};"></div></td>
+                        <td class="tablecell legendtxt" title="{{ row.9 |safe }}">{{ row.10 |safe }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div><br>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="contentbox">
+            <p class="bluetxt" style="font-size:26px; !important">Manufacturers’ Total Drug Scores</p>
+            <div id="chart_div">
+                {% for row in bardata %}
+                <a onclick="">
+                    <div id="" style="padding-top: 2px; font-family: 'Nunito','sans-serif';">{{ row.0 }}</div>
+                    <div style="width: {{ row.1 }}%;background-color:{{ row.3 }};height: 10px;display:inline-block;font-size:0;margin-right:-4px;"></div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="contentbox">
+            <p class="bluetxt" style="font-size:26px; !important">Impact Score by Company</p>
+            <div class="piewrap">
+                <div class="piechart" id="manupie2"></div>
+            </div>
+            <div class="pielegend">
+                <table style="margin:auto;white-space: nowrap;">
+                    {% for row in pielab %}
+                    <tr style="float:center">
+                        <td class="tablecell"><div class="colorbox" style="background-color:#{{ row.2 |safe }};"></div></td>
+                        <td class="tablecell legendtxt" title="{{ row.0 |safe }}">{{ row.1 |safe }}</td>
+                        <td class="tablecell leftcell"><div class="colorbox" style="background-color:#{{ row.5 |safe }};"></div></td>
+                        <td class="tablecell legendtxt" title="{{ row.3 |safe }}">{{ row.4 |safe }}</td>
+                        <td class="tablecell leftcell"><div class="colorbox" style="background-color:#{{ row.8 |safe }};"></div></td>
+                        <td class="tablecell legendtxt" title="{{ row.6 |safe }}">{{ row.7 |safe }}</td>
+                        <td class="tablecell leftcell"><div class="colorbox" style="background-color:#{{ row.11 |safe }};"></div></td>
+                        <td class="tablecell legendtxt" title="{{ row.9 |safe }}">{{ row.10 |safe }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div><br>
+<div class="row">
+    <div class="col-sm-6">
+        <p class="bluetxt">Limitations</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <p class="txtcontent">The rankings on this website are meant to provide a metric of the impacts of pharmaceutical companies’ drugs on a few important global diseases. This index is not meant to measure how “good” a pharmaceutical company is in relation to its peers, or how effective it has been at ensuring access to its drugs.
+The impacts of the ranked companies’ drugs is only one of many measures of a company’s overall fulfillment of its social responsibilities. For instance, companies with high scores on this index may have poor access policies and those with lower scores better access policies. For a more complete picture, these rankings are best read in combination with other academicand civil society analyses of drug companies’ global impact.</p>
+    </div>
+    <div class="col-sm-6">
+        <p class="txtcontent">In this iteration of the index we show how much credit an originator company will receive for drugs depending on selected time elapsed from the granting of a patent setting the default value to five years. This decision was made because we did not want to create incentives for companies to extend the patent terms of their medicines but we believe it is important to encourage companies to recognize the value of drugs that have a large impact on global health even once they are off patent. For a more comprehensive view that takes into account the vital role of generics companies in ensuring access to essential medicines, see the manufacturers’ tab.</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <p class="bluetxt">Purpose and Value</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <p class="txtcontent">While not intended to serve as a measure of good company behavior, we believe that this index can serve as a valuable tool. This ranking system serves as the first scientifically rigorous comparison of pharmaceutical companies by their drugs’ impacts on death and disability. A scientific model of this impact is a neglected, yet important, piece of the larger picture. While we endorse the vital importance of strong access policies, we believe this ranking can be an important piece in that puzzle. Companies’ scores will improve most if they: (1) develop drugs that will have the biggest impact on the global</p>
+    </div>
+    <div class="col-sm-6">
+        <p class="txtcontent">burden of disease and (2) change their access policies to ensure these drugs (along with their existing products) reach as many people as possible. We strongly believe that this is best achieved by working closely with civil society organizations.
+Of course, some companies may raise their scores by simply acquiring the most effective drugs for a particular disease (the first prong), and counting on governments and aid organizations to pay inflated prices for them (ignoring the second prong). Thus, for a complete picture, this ranking system must be read in conjunction with others (see Limitations, above).</p>
+    </div>
+</div>
+{% endif %}
+{% if comptype == 1 %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load("current", {packages:["corechart"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data1 = google.visualization.arrayToDataTable([['Company','DALY']{% for row in patent1 %},['{{row.0}}',{{row.1}}]{% endfor %}]);
+    var options1 = {
+        height: 300,
+        'chartArea':{top:0},
+        legend:'none',
+        slices: [{% for row in patent1 %}{color: '{{row.2 |safe}}'},{% endfor %}{}],
+        is3D: 'true'
+    };
+    var data2 = google.visualization.arrayToDataTable([['Company','DALY']{% for row in patent2 %},['{{row.0}}',{{row.1}}]{% endfor %}]);
+    var options2 = {
+        height: 300,
+        'chartArea':{top:0},
+        legend:'none',
+        slices: [{% for row in patent2 %}{color: '{{row.2 |safe}}'},{% endfor %}{}],
+        is3D: 'true'
+    };
+
+    var chart1 = new google.visualization.PieChart(document.getElementById('patpie1'));
+    var chart2 = new google.visualization.PieChart(document.getElementById('patpie2'));
+    chart1.draw(data1, options1);
+    chart2.draw(data2, options2);
+  };
+</script>
+<script type="text/javascript">
+
+</script>
+<div class="currentlocation">
+<p class="pagetitle">Index / <a href="/index/company" class="pagetitle">Company</a> / <a href="/index/company/patent/{{ speclocate.0 }}/all" class="pagetitle">Patent</a> / <a href="/index/company/patent/{{ speclocate.0 }}/all" class="pagetitle">{{ speclocate.0 }}</a> / <a href="/index/company/patent/{{ speclocate.0 }}/{{ speclocate.2 }}" class="titlebold">{{ speclocate.1 }}</a></p></div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="contentbox">
+            <p class="redtxt">PATENT HOLDER: <b>ALL</b></p>
+            <p class="txtcontent">The Global Health Impact Company Index evaluates how pharmaceutical companies’ drugs impact the health of populations devastated by disease. It is usually the case that those who are burdened most by these diseases live on less a dollar a day. Company scores are the combined total of the impact of their drugs on death and disability around the world. Three aspects are taken into consideration when determining country scores: The need for several important drugs in each country, the drugs’ effectiveness, and the number of people that can access them. For additional information, please see the Reports.</p>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="contentbox">
+            <p class="bluetxt" style="font-size:26px; !important">Proportion of Global Disease Burden Alleviated by Originator Company’s Drugs</p>
+            <div class="piewrap">
+                <div class="piechart" id="patpie1"></div>
+            </div>
+            <div class="pielegend">
+                <table style="margin:auto;white-space: nowrap;">
+                {% for row in pielabb1 %}
+                <tr style="float:center">
+                    {% for item in row %}
+                    <td class="tablecell leftcell"><div class="colorbox" style="background-color:{{ item.2 |safe }};"></div></td>
+                    <td class="tablecell legendtxt" title="{{ item.0 |safe }}: {{ item.3 |safe }}">{{ item.1 |safe }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+            </div>
+        </div>
+    </div>
+</div><br>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="contentbox">
+            <p class="bluetxt" style="font-size:26px; !important">Patent Holders’ Total Drug Scores</p>
+            <div id="chart_div">
+                {% for comp in patent2 %}
+                <a onclick="bargoclick({{ loop.index }});" title="{{ comp.0 }}: {{ comp.1 }}">
+                    <div id="" style="padding-top: 2px; font-family: 'Nunito','sans-serif';">{{ comp.0 }}</div>
+                    <div style="width: {{ comp.3 }}%;background-color:#{{ comp.2 }};height: 10px;display:inline-block;font-size:0;margin-right:-4px;"></div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="contentbox">
+            <p class="bluetxt" style="font-size:26px; !important">Impact Score by Company</p>
+            <div class="piewrap">
+                <div class="piechart" id="patpie2"></div>
+            </div>
+            <div class="pielegend">
+                <table style="margin:auto;white-space: nowrap;">
+                {% for row in pielabb2 %}
+                <tr style="float:center">
+                    {% for item in row %}
+                    <td class="tablecell leftcell"><div class="colorbox" style="background-color:{{ item.2 |safe }};"></div></td>
+                    <td class="tablecell legendtxt" title="{{ item.0 |safe }}: {{ item.3 |safe }}">{{ item.1 |safe }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div><br>
+<div class="row">
+    <div class="col-sm-6">
+        <p class="bluetxt">Limitations</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <p class="txtcontent">The rankings on this website are meant to provide a metric of the impacts of pharmaceutical companies’ drugs on a few important global diseases. This index is not meant to measure how “good” a pharmaceutical company is in relation to its peers, or how effective it has been at ensuring access to its drugs.
+The impacts of the ranked companies’ drugs is only one of many measures of a company’s overall fulfillment of its social responsibilities. For instance, companies with high scores on this index may have poor access policies and those with lower scores better access policies. For a more complete picture, these rankings are best read in combination with other academicand civil society analyses of drug companies’ global impact.</p>
+    </div>
+    <div class="col-sm-6">
+        <p class="txtcontent">In this iteration of the index we show how much credit an originator company will receive for drugs depending on selected time elapsed from the granting of a patent setting the default value to five years. This decision was made because we did not want to create incentives for companies to extend the patent terms of their medicines but we believe it is important to encourage companies to recognize the value of drugs that have a large impact on global health even once they are off patent. For a more comprehensive view that takes into account the vital role of generics companies in ensuring access to essential medicines, see the manufacturers’ tab.</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <p class="bluetxt">Purpose and Value</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <p class="txtcontent">While not intended to serve as a measure of good company behavior, we believe that this index can serve as a valuable tool. This ranking system serves as the first scientifically rigorous comparison of pharmaceutical companies by their drugs’ impacts on death and disability. A scientific model of this impact is a neglected, yet important, piece of the larger picture. While we endorse the vital importance of strong access policies, we believe this ranking can be an important piece in that puzzle. Companies’ scores will improve most if they: (1) develop drugs that will have the biggest impact on the global</p>
+    </div>
+    <div class="col-sm-6">
+        <p class="txtcontent">burden of disease and (2) change their access policies to ensure these drugs (along with their existing products) reach as many people as possible. We strongly believe that this is best achieved by working closely with civil society organizations.
+Of course, some companies may raise their scores by simply acquiring the most effective drugs for a particular disease (the first prong), and counting on governments and aid organizations to pay inflated prices for them (ignoring the second prong). Thus, for a complete picture, this ranking system must be read in conjunction with others (see Limitations, above).</p>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
